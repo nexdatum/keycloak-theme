@@ -1,5 +1,9 @@
 # Keycloak Theme Customization
 
+## Introduction
+
+The simplest method of theme customization for Keycloak. Demonstrated with Keycloak version 26.X.X.
+
 ---
 
 ![Screenshot](themes/public/keycloak-custom-theme.jpg)
@@ -19,13 +23,13 @@ To use Docker Compose:
 
 1. Install Docker and Docker Compose on your machine.
 2. Open a terminal and navigate to the repository's root directory.
-3. Run the following command: `docker-compose up -d`
+3. Run the following command: `docker compose up -d`
 4. Wait for the Keycloak container to start.
 5. Access the Keycloak admin console by visiting `http://localhost:8282/auth/admin/`.
 6. Log in using the default admin credentials (username: `admin`, password: `admin`).
 7. Follow the steps mentioned in the "Installation" section to apply and test your customized theme.
 
-To stop the Keycloak container, run `docker-compose down`.
+To stop the Keycloak container, run `docker compose down`.
 
 ## Customization Process
 
@@ -44,8 +48,8 @@ To customize the Keycloak theme for your specific needs, you can follow these st
 
 To install and use the customized theme in Keycloak:
 
-1. Copy the folder (`my-custom-theme`) from the `providers` directory to the Keycloak server's
-   `standalone/deployments` directory.
+1. Copy the folder `my-custom-theme` or other folders with created by you themes and past to the Keycloak module or
+   folder of your project next to the docker-compose.yml (keycloak).
 2. Start or restart the Keycloak server.
 3. Log in to the Keycloak admin console.
 4. Navigate to the desired realm.
@@ -63,6 +67,18 @@ the "Login theme" window select the theme you need. Here you can set the "Login 
 
 The customized theme will now be applied to the corresponding Keycloak pages.
 
+###### _Note_
+
+- If you are going to customise other Keycloak service pages as "Register", "Errors" and other, so you can set Header
+  and Footer outside the main body page.
+  The `header.html` is shown as an example. Just input `<#include "header.html">` or `<#include "footer.html">` on a
+  proper place. You can find example in the  `register.ftl`.
+- The `register.ftl` as well as `script.js`, `register.css` and `adaptive.css` were presented as an example of
+  customisation only.
+- You can use any of appropriate official Keycloak `ftl`
+  from [Keycloak Repository](https://github.com/keycloak/keycloak/tree/main/themes/src/main/resources/theme) to use in
+  customisation as you need.
+
 ## Contributing
 
 If you find any issues or have suggestions for improvement, please feel free to contribute by opening an issue or
@@ -77,4 +93,3 @@ submitting a pull request. Your contributions are greatly appreciated.
 
 This repository is licensed under the [MIT License](LICENSE).
 
-# keycloak-theme

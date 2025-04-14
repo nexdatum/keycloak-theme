@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ${realmName!'FlyLog'}</title>
+    <title>Login - ${realmName!'Your Realm'}</title>
     <link rel="icon" href="${url.resourcesPath}/img/favicon.ico"/>
     <link rel="stylesheet" href="${url.resourcesPath}/css/styles.css">
 </head>
 <body class="login-pf">
 <div id="kc-container">
     <#-- Header (optional) -->
+    <#--    <#include "header.html">-->     <#-- If you are going to customise other Keycloak service pages as "Register", "Errors" and other, so you can set Header and Footer outside the main body page.  -->
+
     <header>
         <div id="kc-header" class="navbar navbar-inverse navbar-fixed-top">
             <div id="kc-header-wrapper">
@@ -41,10 +43,46 @@
                         <button type="button" id="togglePassword" class="toggle-password">👁️</button>
                     </label>
 
-                    <button type="submit" class="btn">Login</button>
-                    <label>
-                        <input id="checkbox" type="checkbox" checked="checked" name="remember"> Remember me
-                    </label>
+                    <#-- Remember me/ Forgot Password? -->
+                    <div class="remember-me ${properties.kcFormGroupClass!} ${properties.kcFormSettingClass!}">
+                        <div id="kc-form-options">
+                            <#if realm.rememberMe && !usernameHidden??>
+                                <div class="checkbox">
+                                    <label>
+                                        <#if login.rememberMe??>
+                                            <input tabindex="5" id="rememberMe" name="rememberMe" type="checkbox"
+                                                   checked> ${msg("rememberMe")}
+                                        <#else>
+                                            <input tabindex="5" id="rememberMe" name="rememberMe"
+                                                   type="checkbox"> ${msg("rememberMe")}
+                                        </#if>
+                                    </label>
+                                </div>
+                            </#if>
+                        </div>
+                        <div class="${properties.kcFormOptionsWrapperClass!}">
+                            <#if realm.resetPasswordAllowed>
+                                <span><a id="form-link" tabindex="6"
+                                         href="${url.loginResetCredentialsUrl}">${msg("doForgotPassword")}</a></span>
+                            </#if>
+                        </div>
+                    </div>
+
+                    <#-- Sign In Button -->
+                    <div id="kc-form-buttons" class="${properties.kcFormGroupClass!}">
+                        <input type="hidden" id="id-hidden-input" name="credentialId"
+                               <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
+                        <input tabindex="7"
+                               class="${properties.kcButtonClass!} ${properties.kcButtonPrimaryClass!} ${properties.kcButtonBlockClass!} ${properties.kcButtonLargeClass!} btn"
+                               name="login" id="kc-login" type="submit" value="${msg("doLogIn")}"/>
+                    </div>
+
+                    <#-- You can use a simple code of checkbox and Login button and add your own funtionality options -->
+
+                    <#--                    <button type="submit" class="btn">Login</button>-->
+                    <#--                    <label>-->
+                    <#--                        <input id="checkbox" type="checkbox" checked="checked" name="remember"> Remember me-->
+                    <#--                    </label>-->
                 </div>
             </form>
         </div>

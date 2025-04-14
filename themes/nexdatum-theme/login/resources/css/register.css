@@ -1,0 +1,9 @@
+#kc-required-fields {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+#register-btn {
+    margin-top: 1rem;
+    width: 100%;
+}
